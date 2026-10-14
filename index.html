@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Говори правильно — Образовательная интерактивная платформа для школьников</title>
+  <meta name="description" content="Интерактивная EdTech-платформа по культуре русской речи, ударениям, паронимам и грамматике для школьников 1-11 классов.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  
+  <!-- Современные шрифты Google Fonts: Montserrat (заголовки) и Nunito (основной текст) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Основные стили проекта -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Интерактивный Canvas-фон со всплывающими языковыми символами -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ========================================================================
+       ШАПКА САЙТА (HEADER)
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      
+      <!-- Логотип -->
+      <a href="#hero" class="logo-link">
+        <div class="logo-icon-wrap">
+          <span>📖</span>
+        </div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">Говори правильно</span>
+          <span class="logo-subtitle">Школьная платформа</span>
+        </div>
+      </a>
+
+      <!-- Основная навигация -->
+      <nav class="main-nav" id="main-nav">
+        <a href="#hero" class="nav-link active">Главная</a>
+        <a href="#stresses" class="nav-link">Ударение дня</a>
+        <a href="#errors" class="nav-link">Найди ошибку</a>
+        <a href="#stylistics" class="nav-link">Скажи красиво</a>
+        <a href="#quiz" class="nav-link">Проверь себя</a>
+        <a href="#theory" class="nav-link">Теория & Правила</a>
+      </nav>
+
+      <!-- Панель баллов, серии и быстрых действий -->
+      <div class="header-actions">
+        <!-- Очки XP -->
+        <div class="stat-badge xp-badge" title="Заработанные очки опыта (XP)">
+          <span>⭐</span>
+          <span id="user-xp-count">0 XP</span>
+        </div>
+
+        <!-- Счётчик правильных ответов подряд (Streak) -->
+        <div class="stat-badge streak-badge" title="Серия верных ответов подряд (Streak)">
+          <span>🔥</span>
+          <span id="user-streak-count">0</span>
+        </div>
+
+        <!-- Достижения -->
+        <button class="icon-btn" id="open-achievements-btn" title="Мои достижения">
+          <span>🏆</span>
+        </button>
+
+        <!-- Звуковые эффекты -->
+        <button class="icon-btn" id="sound-toggle-btn" title="Звук">
+          <span>🔔</span>
+        </button>
+
+        <!-- Бургер для мобильных экранов -->
+        <button class="burger-btn" id="burger-btn" aria-label="Открыть меню навигации">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         ГЛАВНЫЙ ЭКРАН (HERO SECTION)
+         ====================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span>✨</span>
+            <span>Интерактивный языковой тренажёр для школьников</span>
+          </div>
+
+          <h1 class="hero-title">
+            Грамотная речь — это <span class="highlight">уверенность</span> в общении!
+          </h1>
+
+          <p class="hero-subtitle">
+            Изучай нормы русского языка легко и весело с помощью интерактивных упражнений, весёлых мнемоник и языковых игр.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#stresses" class="btn btn-primary">
+              <span>🚀</span> Начать обучение
+            </a>
+            <a href="#quiz" class="btn btn-secondary">
+              <span>📝</span> Быстрый тест
+            </a>
+          </div>
+
+          <!-- Баннер-цитата -->
+          <div class="quote-banner">
+            «Слово — это сила. Грамотная речь — это уверенность. А умение говорить правильно — это искусство быть услышанным.»
+          </div>
+        </div>
+
+        <!-- Интерактивная визитная карточка Hero -->
+        <div class="hero-visual">
+          <div class="hero-card-stack">
+            <div class="hero-interactive-card">
+              <div class="hero-card-header">
+                <span class="badge-tag badge-green">Тренажёр дня</span>
+                <span style="font-size: 1.4rem;">🎯</span>
+              </div>
+              <div class="hero-card-word">
+                звон<span style="color: var(--success); text-decoration: underline;">И</span>т
+              </div>
+              <div class="hero-card-hint">
+                <span style="font-size: 1.4rem;">💡</span>
+                <span>Запоминалка: <em>«Телефон опять звонИт, нам пятёрку он сулИт!»</em></span>
+              </div>
+              <div class="hero-card-stats">
+                <div class="quick-stat">
+                  <div class="quick-stat-num">4</div>
+                  <div class="quick-stat-label">Модуля знаний</div>
+                </div>
+                <div class="quick-stat">
+                  <div class="quick-stat-num">100+</div>
+                  <div class="quick-stat-label">Правил и тестов</div>
+                </div>
+                <div class="quick-stat">
+                  <div class="quick-stat-num">100%</div>
+                  <div class="quick-stat-label">Сертификат</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         РАЗДЕЛ 1: УДАРЕНИЕ ДНЯ
+         ====================================================================== -->
+    <section class="section" id="stresses">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" style="color: var(--primary);">Модуль 1 • Орфоэпия</span>
+          <h2 class="section-title">Ударение дня</h2>
+          <p class="section-desc">
+            Нажимай прямо на гласную букву, на которую падает верное ударение. Запоминай ритмичные стишки-мнемоники!
+          </p>
+        </div>
+
+        <div class="stress-trainer-card">
+          <div class="trainer-top-bar">
+            <span class="badge-tag badge-blue" id="stress-category-badge">Существительные</span>
+            <span class="word-progress" id="stress-progress">Слово 1 из 16</span>
+          </div>
+
+          <p class="stress-instruction">Кликни на ударную гласную букву в слове:</p>
+
+          <!-- Интерактивное отображение слова -->
+          <div class="stress-word-display" id="stress-word-display">
+            <!-- Буквы генерируются динамически через JS -->
+          </div>
+
+          <!-- Блок с мнемоникой и правилом (появляется при верном ответе) -->
+          <div class="stress-explanation-box" id="stress-explanation-box">
+            <div class="mnemonic-box">
+              <span class="mnemonic-icon">🎵</span>
+              <div class="mnemonic-text" id="stress-mnemonic-text">
+                Долго ели тОрты — не налезли шОрты!
+              </div>
+            </div>
+            <p class="stress-rule-text" id="stress-rule-text">
+              Ударение в этом существительном неподвижное и остаётся на корне во всех падежах.
+            </p>
+          </div>
+
+          <!-- Кнопки переключения слов -->
+          <div class="trainer-controls">
+            <button class="btn btn-secondary" id="stress-prev-btn">
+              ◀ Назад
+            </button>
+            <button class="btn btn-secondary" id="stress-random-btn">
+              🎲 Случайное слово
+            </button>
+            <button class="btn btn-primary" id="stress-next-btn">
+              Следующее слово ▶
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         РАЗДЕЛ 2: НАЙДИ ОШИБКУ (Паронимы и нормы)
+         ====================================================================== -->
+    <section class="section" id="errors" style="background: rgba(255, 255, 255, 0.6);">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" style="color: var(--purple);">Модуль 2 • Грамматика & Паронимы</span>
+          <h2 class="section-title">Найди ошибку</h2>
+          <p class="section-desc">
+            Сравнивай сложные пары слов и предложений. Узнай секреты, почему одни фразы грамотны, а другие — грубые ошибки!
+          </p>
+        </div>
+
+        <div class="errors-trainer-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="error-topic-badge" id="error-topic-badge">Паронимы: Одеть / Надеть</span>
+            <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted);" id="error-progress-counter">Задание 1 из 10</span>
+          </div>
+
+          <h3 class="error-question-title" id="error-question-title">
+            Выбери грамматически верный вариант:
+          </h3>
+
+          <!-- Сетка вариантов ответа -->
+          <div class="options-grid" id="error-options-grid">
+            <!-- Варианты генерируются динамически -->
+          </div>
+
+          <!-- Детальный разбор правила -->
+          <div class="rule-explanation-card" id="error-explanation-card">
+            <div class="rule-header-title">
+              <span>💡</span>
+              <span id="error-rule-title">Золотое правило</span>
+            </div>
+            <div class="rule-body-text" id="error-rule-text">
+              Подробное объяснение правила появится здесь после выбора ответа.
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+            <button class="btn btn-primary" id="error-next-btn" style="display: none;">
+              Следующее задание ➔
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         РАЗДЕЛ 3: СКАЖИ КРАСИВО (Культура речи и стилистика)
+         ====================================================================== -->
+    <section class="section" id="stylistics">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" style="color: var(--warning);">Модуль 3 • Стилистика</span>
+          <h2 class="section-title">Скажи красиво</h2>
+          <p class="section-desc">
+            Тренажёр по избавлению от слов-паразитов, тавтологий, канцелярских штампов и речевой избыточности.
+          </p>
+        </div>
+
+        <!-- Переключатели вкладок -->
+        <div class="module-tabs">
+          <button class="tab-btn active" data-tab="tab-tautologies">
+            🚫 Плеоназмы и тавтологии
+          </button>
+          <button class="tab-btn" data-tab="tab-replacements">
+            ✨ Слова-паразиты и штампы
+          </button>
+        </div>
+
+        <!-- Вкладка 1: Тавтологии и плеоназмы -->
+        <div class="tab-pane active" id="tab-tautologies">
+          <div class="style-cards-grid" id="tautology-cards-grid">
+            <!-- Карточки генерируются динамически -->
+          </div>
+        </div>
+
+        <!-- Вкладка 2: Канцеляризмы и штампы -->
+        <div class="tab-pane" id="tab-replacements">
+          <div class="style-cards-grid" id="replacements-cards-grid">
+            <!-- Карточки генерируются динамически -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         РАЗДЕЛ 4: ПРОВЕРЬ СЕБЯ (Тест и Сертификат)
+         ====================================================================== -->
+    <section class="section" id="quiz" style="background: rgba(255, 255, 255, 0.7);">
+      <div class="container quiz-wrapper">
+        
+        <div class="section-header">
+          <span class="section-tag" style="color: var(--success);">Модуль 4 • Тестирование</span>
+          <h2 class="section-title">Проверь себя</h2>
+          <p class="section-desc">
+            Комплексный тест из 10 вопросов объединяет ударения, паронимы, грамматику и стилистику. Получи официальный цифровой сертификат!
+          </p>
+        </div>
+
+        <div class="quiz-card">
+          
+          <!-- Стартовый экран теста -->
+          <div class="quiz-intro-box" id="quiz-intro-box">
+            <span style="font-size: 3.5rem;">🎓</span>
+            <h3 style="font-size: 1.8rem; margin: 14px 0 8px;">Готов проверить свою грамотность?</h3>
+            <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 20px;">
+              Ответь на 10 вопросов из школьной программы, чтобы узнать свой уровень владения литературным языком.
+            </p>
+
+            <div class="quiz-features-list">
+              <div class="quiz-feature-item">
+                <span>⏱️</span>
+                <span>Таймер 25 сек</span>
+              </div>
+              <div class="quiz-feature-item">
+                <span>⭐</span>
+                <span>+25 XP за верный ответ</span>
+              </div>
+              <div class="quiz-feature-item">
+                <span>📜</span>
+                <span>Именной сертификат</span>
+              </div>
+            </div>
+
+            <!-- Переключатель таймера -->
+            <div style="margin-bottom: 25px; display: inline-flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="quiz-timer-toggle" checked style="width: 18px; height: 18px; cursor: pointer;">
+              <label for="quiz-timer-toggle" style="cursor: pointer; font-weight: 700; font-size: 0.95rem; color: var(--text-secondary);">
+                Включить таймер на вопрос
+              </label>
+            </div>
+
+            <div>
+              <button class="btn btn-primary" id="quiz-start-btn" style="padding: 16px 36px; font-size: 1.1rem;">
+                🚀 Начать тестирование
+              </button>
+            </div>
+          </div>
+
+          <!-- Активный экран вопроса -->
+          <div id="quiz-active-view" style="display: none;">
+            <div class="quiz-active-header">
+              <span class="badge-tag badge-purple" id="quiz-q-category">Категория</span>
+              <div class="quiz-progress-bar-wrap">
+                <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+              </div>
+              <span id="quiz-question-counter" style="font-weight: 700; font-size: 0.9rem; color: var(--text-muted); white-space: nowrap;">1 из 10</span>
+              <div class="quiz-timer-badge" id="quiz-timer-badge">⏱️ 25 сек</div>
+            </div>
+
+            <h3 class="quiz-question-text" id="quiz-q-text">
+              Текст вопроса...
+            </h3>
+
+            <div class="quiz-options-list" id="quiz-options-list">
+              <!-- Кнопки вариантов -->
+            </div>
+
+            <!-- Обратная связь по вопросу -->
+            <div id="quiz-answer-feedback" style="display: none; padding: 16px; border-radius: var(--radius-md); background: var(--bg-subtle); margin-bottom: 20px;"></div>
+
+            <div style="display: flex; justify-content: flex-end;">
+              <button class="btn btn-primary" id="quiz-next-q-btn" style="display: none;">
+                Следующий вопрос ➔
+              </button>
+            </div>
+          </div>
+
+          <!-- Экран итоговых результатов и Сертификата -->
+          <div class="quiz-results-box" id="quiz-results-box">
+            <div class="result-score-circle">
+              <span class="score-pct" id="result-pct-number">100%</span>
+              <span class="score-label">Грамотность</span>
+            </div>
+
+            <h3 class="result-badge-title" id="result-rank-title">🏆 Магистр русской речи</h3>
+            <p class="result-feedback-text" id="result-feedback-text">
+              Ты показал великолепный уровень знаний литературного русского языка!
+            </p>
+
+            <!-- Поле ввода имени для сертификата -->
+            <div style="max-width: 460px; margin: 0 auto 25px; display: flex; gap: 8px;">
+              <input type="text" id="cert-student-name-input" placeholder="Введите имя и фамилию для сертификата" style="flex: 1; padding: 12px 18px; border-radius: var(--radius-full); border: 1px solid var(--border-color); font-size: 1rem; outline: none;">
+              <button class="btn btn-primary" id="cert-update-name-btn" style="padding: 12px 20px; font-size: 0.95rem;">
+                Применить
+              </button>
+            </div>
+
+            <!-- Цифровой Сертификат -->
+            <div class="certificate-preview-wrap">
+              <div class="digital-certificate" id="digital-certificate-card">
+                <div class="cert-corner top-left"></div>
+                <div class="cert-corner top-right"></div>
+                <div class="cert-corner bottom-left"></div>
+                <div class="cert-corner bottom-right"></div>
+
+                <div class="cert-header">Школьная образовательная платформа «Говори правильно»</div>
+                <h2 class="cert-title">СЕРТИФИКАТ ГРАМОТНОСТИ</h2>
+                <div class="cert-subtitle">Настоящий сертификат с гордостью вручается:</div>
+
+                <div class="cert-name" id="cert-display-name">Ученик школы</div>
+
+                <p class="cert-desc">
+                  за успешное прохождение комплексного тестирования норм литературной речи, орфоэпии, грамматики и стилистики русского языка.
+                </p>
+
+                <div id="cert-display-score" style="font-weight: 800; color: var(--primary); font-size: 1.15rem; margin-bottom: 20px;">
+                  Успеваемость: 100% | Статус: Магистр русской речи
+                </div>
+
+                <div class="cert-footer">
+                  <span id="cert-display-date">Дата: 14 октября 2026</span>
+                  <div class="cert-seal">★</div>
+                  <span>Официальная аттестация</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Действия с сертификатом -->
+            <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 25px;">
+              <button class="btn btn-success" id="cert-download-btn">
+                💾 Скачать сертификат (PNG)
+              </button>
+              <button class="btn btn-secondary" id="cert-print-btn">
+                🖨️ Распечатать
+              </button>
+              <button class="btn btn-secondary" id="quiz-restart-btn">
+                🔄 Пройти тест заново
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         РАЗДЕЛ 5: ТЕОРИЯ И ПРАВИЛА (Справочник)
+         ====================================================================== -->
+    <section class="section" id="theory">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag" style="color: var(--primary);">База знаний</span>
+          <h2 class="section-title">Справочник «Быстрые правила»</h2>
+          <p class="section-desc">
+            Ищи нужные правила с помощью удобного поиска и фильтра категорий. Закрепляй знания и получай дополнительный опыт!
+          </p>
+        </div>
+
+        <div class="theory-controls">
+          <!-- Поисковая строка -->
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="theory-search-input" placeholder="Поиск по правилам (например: звонить, одеть, вакансия, торты)...">
+          </div>
+
+          <!-- Категории-таблетки -->
+          <div class="theory-category-pills" id="theory-pills-container">
+            <button class="cat-pill active" data-cat="Все">Все правила</button>
+            <button class="cat-pill" data-cat="Ударения">Ударения</button>
+            <button class="cat-pill" data-cat="Паронимы">Паронимы</button>
+            <button class="cat-pill" data-cat="Управление">Управление</button>
+            <button class="cat-pill" data-cat="Грамматика">Грамматика</button>
+            <button class="cat-pill" data-cat="Стилистика">Стилистика</button>
+          </div>
+        </div>
+
+        <!-- Сетка карточек правил -->
+        <div class="theory-rules-grid" id="theory-rules-grid">
+          <!-- Карточки генерируются динамически -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       ПОДВАЛ САЙТА (FOOTER)
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 1.8rem;">📖</span>
+        <div>
+          <strong style="font-size: 1.1rem; color: var(--text-primary);">Говори правильно</strong>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Интерактивная образовательная среда для школьников</p>
+        </div>
+      </div>
+
+      <div class="footer-copy">
+        © 2026 «Говори правильно». Сделано с любовью к родному языку ❤️
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       МОДАЛЬНОЕ ОКНО ДОСТИЖЕНИЙ
+       ======================================================================== -->
+  <div class="modal-overlay" id="achievements-modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="close-ach-modal" aria-label="Закрыть">&times;</button>
+      <h3 style="font-size: 1.6rem; display: flex; align-items: center; gap: 10px;">
+        <span>🏆</span> Твои достижения
+      </h3>
+      <p style="color: var(--text-secondary); margin-top: 4px;">
+        Выполняй задания, держи серию побед и открывай уникальные звания!
+      </p>
+
+      <div class="achievements-grid" id="achievements-list">
+        <!-- Список ачивок -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Контейнер для всплывающих уведомлений -->
+  <div id="toast-container"></div>
+
+  <!-- Подключение скриптов приложения -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/canvas-bg.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
